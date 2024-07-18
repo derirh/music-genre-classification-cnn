@@ -1,0 +1,8 @@
+flask
+werkzeug.utils 
+numpy 
+librosa
+tensorflow
+pickle
+pydub 
+pydub.utils 
