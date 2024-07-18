@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klasifikasi Genre Musik</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Klasifikasi Genre Musik</h1>
+        <form id="music-classification-form" method="POST" action="/" enctype="multipart/form-data">
+            <label for="music-file">Pilih Lagu:</label>
+            <input type="file" id="music-file" name="music-file" accept="audio/*" required>
+            <audio id="audio-preview" controls style="display:none;"></audio>
+            <button type="submit">Klasifikasi</button>
+        </form>
+        <div id="file-name"></div>
+        <div id="result">{{ result }}</div>
+        <div class="loader" id="loader"></div>
+    </div>
+
+
+    <script>
+        document.getElementById('music-file').addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            if (file) {
+
+                var fileNameDiv = document.getElementById('file-name');
+                fileNameDiv.textContent = '';
+
+                var resultDiv = document.getElementById('result');
+                resultDiv.textContent = '';
+
+                // Preview the audio
+                var audioPreview = document.getElementById('audio-preview');
+                var objectURL = URL.createObjectURL(file);
+                audioPreview.src = objectURL;
+                audioPreview.style.display = 'block';
+                audioPreview.load();
+
+                localStorage.setItem('audioPreviewURL', objectURL);
+            }
+        });
+
+
+
+        document.getElementById('music-classification-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var fileInput = document.getElementById('music-file');
+            var file = fileInput.files[0];
+            if (file) {
+
+
+                // Display the file name
+                var fileNameDiv = document.getElementById('file-name');
+                fileNameDiv.textContent = 'Selected file: ' + file.name;
+
+                // Store the file name in localStorage
+                localStorage.setItem('selectedFileName', file.name);
+
+                var loader = document.getElementById('loader');
+                loader.style.display = 'block';
+
+                // Clear the previous result
+                var resultDiv = document.getElementById('result');
+                resultDiv.textContent = '';
+
+
+                // Submit the form after displaying the file name
+                setTimeout(function() {
+                    event.target.submit();
+                }, 1000); // Adjust the delay if needed
+            }
+        });
+
+        // Retrieve and display the file name from localStorage on page load
+        window.onload = function() {
+            var savedFileName = localStorage.getItem('selectedFileName');
+            if (savedFileName) {
+                var fileNameDiv = document.getElementById('file-name');
+                fileNameDiv.textContent = 'Selected file: ' + savedFileName;
+            }
+
+            var audioPreviewURL = localStorage.getItem('audioPreviewURL');
+            if (audioPreviewURL) {
+                var audioPreview = document.getElementById('audio-preview');
+                audioPreview.src = audioPreviewURL;
+                audioPreview.style.display = 'block';
+                audioPreview.load();
+            }
+        };
+    </script>
+</body>
+</html>
