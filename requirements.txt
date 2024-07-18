@@ -3,6 +3,5 @@ werkzeug
 numpy 
 librosa
 tensorflow
-pickle
 pydub 
 
