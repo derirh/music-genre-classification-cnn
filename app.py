@@ -13,6 +13,10 @@ AudioSegment.ffmpeg = which("ffmpeg")
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'upload'
 
+if not os.path.exists(app.config['UPLOAD_FOLDER']):
+    os.makedirs(app.config['UPLOAD_FOLDER'])
+        
+
 # Fungsi untuk ekstraksi fitur dari file audio menggunakan PyDub
 def extract_features(file_path, mfcc=True, chroma=True, mel=True):
     try:
@@ -80,9 +84,5 @@ def index():
     return render_template('index.html', result=resultt)
 
 if __name__ == '__main__':
-    
-    if not os.path.exists(app.config['UPLOAD_FOLDER']):
-        os.makedirs(app.config['UPLOAD_FOLDER'])
-        
     app.run(debug=True)
 
