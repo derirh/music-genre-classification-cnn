@@ -39,8 +39,8 @@ def extract_features(file_path, mfcc=True, chroma=True, mel=True):
         return None
 
 # Memuat encoder dengan pickle
-MODEL_PATH = 'C:/Kuliah/SEM 6/PDM/klasifikasi_genre/model.h5'
-ENCODER_PATH = 'C:/Kuliah/SEM 6/PDM/klasifikasi_genre/encoder.pkl'
+MODEL_PATH = 'model.h5'
+ENCODER_PATH = 'encoder.pkl'
 
 model = tf.keras.models.load_model(MODEL_PATH)
 
