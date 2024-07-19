@@ -80,5 +80,9 @@ def index():
     return render_template('index.html', result=resultt)
 
 if __name__ == '__main__':
+    
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
+        
     app.run(debug=True)
 
