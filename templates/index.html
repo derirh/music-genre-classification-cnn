@@ -3,22 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klasifikasi Genre Musik</title>
+    <title>Music Genre Classification</title>
     <link rel="stylesheet" href="/static/style.css">
+    <script src="/templates/script.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Klasifikasi Genre Musik</h1>
+    <div class="profile">
+        <div class="name" onclick="klikNama('name')">
+            <p>Deri Rihi Hina</p>
+        </div> 
+        <div class="about" onclick="klikAbout('about')">
+            <p>Model Accuracy 69%</p>
+        </div>
+    </div>
+    <div class="container" id="container">
+        <div id="title">
+            <h1>Music Genre Classification</h1>
+        </div>
         <form id="music-classification-form" method="POST" action="/" enctype="multipart/form-data">
-            <label for="music-file">Pilih Lagu:</label>
+            <label for="music-file" id="label">upload a song :</label>
             <input type="file" id="music-file" name="music-file" accept="audio/*" required>
             <audio id="audio-preview" controls style="display:none;"></audio>
-            <button type="submit">Klasifikasi</button>
+            <button type="submit">Classify</button>
         </form>
         <div id="file-name"></div>
         <div id="result">{{ result }}</div>
         <div class="loader" id="loader"></div>
-    </div>
+    </div>   
 
 
     <script>
@@ -91,6 +102,25 @@
                 audioPreview.load();
             }
         };
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function klikNama(className) {
+            const div = document.querySelector(`.${className}`);
+            const p = div.querySelector('p');
+            const randomDivColor = getRandomColor();
+            const randomTextColor = getRandomColor();
+            div.style.backgroundColor = randomDivColor;
+            p.style.color = randomTextColor;
+        }
+
     </script>
 </body>
 </html>
